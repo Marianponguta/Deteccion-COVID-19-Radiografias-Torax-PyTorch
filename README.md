@@ -5,6 +5,7 @@ Sistema de clasificación de imágenes de radiografías de tórax utilizando Dee
 ## Descripción del Proyecto
 
 Este proyecto implementa un modelo de clasificación de imágenes médicas basado en redes neuronales convolucionales (CNN) para identificar automáticamente tres clases de radiografías de tórax:
+
 - **Normal**: Radiografías sin patologías
 - **Viral Pneumonia**: Neumonía de origen viral
 - **COVID-19**: Casos positivos de COVID-19
@@ -14,20 +15,23 @@ El modelo utiliza Transfer Learning con la arquitectura **ResNet18** preentrenad
 ## Características Principales
 
 ### Procesamiento de Datos
+
 - **Balanceo de clases**: Implementación de `WeightedRandomSampler` para equilibrar la representación de cada clase durante el entrenamiento
-- **Transformaciones de imágenes**: 
+- **Transformaciones de imágenes**:
   - Redimensionamiento a 224x224 píxeles
   - Normalización con valores de ImageNet
   - Data augmentation (flip horizontal aleatorio en entrenamiento)
 - **Split de datos**: División automática en conjuntos de entrenamiento y prueba (40 imágenes por clase para test)
 
 ### Modelo y Entrenamiento
+
 - **Arquitectura**: ResNet18 preentrenada con capa final modificada para 3 clases
 - **Optimización**: Adam optimizer con learning rate de 3e-5
 - **Función de pérdida**: CrossEntropyLoss
 - **Early stopping**: Detención automática al alcanzar 94% de accuracy
 
 ### Visualización y Análisis
+
 - **Distribución del dataset**: Gráficos de barras y pie charts mostrando la distribución de clases
 - **Balanceo visual**: Comparación antes/después del balanceo de clases
 - **Predicciones**: Visualización de imágenes con predicciones (correctas en verde, incorrectas en rojo)
@@ -40,14 +44,16 @@ El modelo utiliza Transfer Learning con la arquitectura **ResNet18** preentrenad
 ## Dataset
 
 El proyecto utiliza el **COVID-19 Radiography Database** disponible en Kaggle:
+
 - **Fuente**: [COVID-19 Radiography Database](https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database)
-- **Contenido**: 
+- **Contenido**:
   - COVID-19: Imágenes de casos positivos
   - Normal: Radiografías sin patologías
   - Viral Pneumonia: Casos de neumonía viral
 - **Formato**: Imágenes PNG de 299x299 píxeles
 
 ### Estructura del Dataset
+
 ```
 COVID-19 Radiography Database/
 ├── README.md
@@ -93,6 +99,7 @@ pipenv install
 ```
 
 Este comando creará un entorno virtual e instalará todas las dependencias especificadas en el `Pipfile`:
+
 - matplotlib
 - torch
 - torchvision
@@ -129,13 +136,13 @@ pipenv shell
 ### Opción 1: Jupyter Notebook (Recomendado)
 
 1. Inicia Jupyter Notebook:
+
    ```powershell
    pipenv run jupyter notebook
    ```
-
 2. Abre el archivo `Con Balanceo.ipynb` en el navegador
-
 3. Ejecuta las celdas en orden:
+
    - **Importación de librerías**: Carga todas las dependencias necesarias
    - **Análisis exploratorio**: Visualiza la distribución del dataset
    - **Preparación de datos**: Crea los conjuntos de entrenamiento y test
@@ -177,11 +184,13 @@ pipenv run python -c "import nbformat; from nbconvert import PythonExporter; nb 
 ## Resultados Esperados
 
 El modelo está diseñado para alcanzar:
+
 - **Accuracy**: ≥ 94% en el conjunto de prueba
 - **Precision y F1-Score**: Métricas altas para las tres clases
 - **AUC-ROC**: Valores cercanos a 1.0 para cada clase
 
 Las visualizaciones generadas incluyen:
+
 - Distribución del dataset antes y después del balanceo
 - Ejemplos de predicciones con etiquetas correctas/incorrectas
 - Matriz de confusión normalizada y absoluta
@@ -191,13 +200,21 @@ Las visualizaciones generadas incluyen:
 ## Notas Técnicas
 
 ### Balanceo de Clases
+
 El proyecto implementa balanceo de clases mediante `WeightedRandomSampler` de PyTorch, que ajusta la probabilidad de muestreo de cada clase según su frecuencia inversa. Esto asegura que el modelo vea aproximadamente la misma cantidad de ejemplos de cada clase durante el entrenamiento, evitando sesgos hacia la clase mayoritaria.
 
 ### Transfer Learning
+
 Se utiliza ResNet18 preentrenada en ImageNet con pesos congelados en las capas convolucionales y solamente la capa final (fully connected) ajustada para 3 clases. Esto permite aprovechar las características visuales aprendidas en millones de imágenes y adaptarlas a radiografías médicas.
 
 ### Early Stopping
+
 El entrenamiento se detiene automáticamente cuando la accuracy en validación alcanza el 94%, evitando sobreentrenamiento y ahorrando tiempo de cómputo.
+
+## Autor
+
+**Maria Andrea Pongutá Rico**
+mponguta@unab.edu.co
 
 ## Créditos
 
@@ -209,7 +226,6 @@ El entrenamiento se detiene automáticamente cuando la accuracy en validación a
 Si utilizas este dataset, por favor cita los siguientes artículos:
 
 1. M.E.H. Chowdhury, T. Rahman, A. Khandakar, R. Mazhar, M.A. Kadir, Z.B. Mahbub, K.R. Islam, M.S. Khan, A. Iqbal, N. Al-Emadi, M.B.I. Reaz, M. T. Islam, "Can AI help in screening Viral and COVID-19 pneumonia?" IEEE Access, Vol. 8, 2020, pp. 132665 - 132676.
-
 2. Rahman, T., Khandakar, A., Qiblawey, Y., Tahir, A., Kiranyaz, S., Kashem, S.B.A., Islam, M.T., Maadeed, S.A., Zughaier, S.M., Khan, M.S. and Chowdhury, M.E., 2020. Exploring the Effect of Image Enhancement Techniques on COVID-19 Detection using Chest X-ray Images. arXiv preprint arXiv:2012.02238.
 
 ## Licencia
