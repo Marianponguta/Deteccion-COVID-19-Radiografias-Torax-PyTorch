@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+matplotlib = "*"
+torch = "*"
+torchvision = "*"
+numpy = "*"
+pillow = "*"
+ipython = "*"
+seaborn = "*"
+plotly = "*"
+nbformat = ">=4.2.0"
+scikit-learn = "*"
+pandas = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10.11"
